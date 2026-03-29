@@ -10,11 +10,11 @@
 }
 
 
+/* ================(1)================= */
 
 html {
   scroll-behavior: smooth;
 }
-
 
 
 /* للتعديل على جسم المتصفح كاملا */
@@ -22,38 +22,29 @@ body {
   background: linear-gradient(#0c0c0c 40% ,#111111);
   margin: 0;
   padding: 0;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px;
   font-family: "Playpen Sans Arabic", cursive;
-  /* background-image: url(img/wallpaper-hero.jpg);
-  background-repeat: no-repeat; */
-
 }
 
-
-
-/* ================(1)================= */
+.fullpage{
+   max-width: 1100px;
+   margin: 0 auto;
+}
 
 
 /* ================(2)================= */
 /* معلومات اول الصفحة */
 
-.hollow {
-  position: fixed;
-  z-index: -1;
-}
-
-
-.author {
+    /* بطاقة الهوية   */
+/* .author {
   display: flex;
-  flex-direction: row-reverse;  /* يعكس الأعمدة */
+    يعكس الأعمدة
+  flex-direction: row-reverse;
   min-height: 50vh;
   padding: 145px 0px 0px 0px;
   align-items: center;
-}
+} */
 
-.author-card{
+/* .author-card{
   max-width: 300px;
   display: flex;
   flex-direction: column;
@@ -66,10 +57,9 @@ body {
   padding-right: 20px;
   padding-left: 0;
   max-height: 250px;
-  /* background-color: #c3b711; */
-}
+} */
 
-.avatar{
+/* .avatar{
   width: 240px;
   max-width: 100%;
   display: block;
@@ -82,9 +72,9 @@ body {
   text-align: center;
   color: white;
 
-}
+} */
 
-.links{
+/* .links{
   display: flex;
   gap: 20px;
 }
@@ -97,49 +87,41 @@ body {
 
 .links svg:hover{
   fill: #ffffff74;
-}
+} */
 
 
 /* نص المؤلف*/
 
-.author-content{
-  /* background: #c3b711; */
+/* .author-content{
   max-width: 70%;
   margin: 0 auto;
-  /* align-items: center; */
-}
+} */
 
-.about1 {
-  /* padding: 400px 0px 0px 0px; */
+/* .about1 {
   text-align: center;
   color: white;
   font-size: 26px;
   word-spacing: 6px;
   line-height : 40px;
-}
+} */
 
-.about2 {
-  /* padding: 10px 0px 0px 0px; */
+/* .about2 {
   text-align: center;
   color: white;
   font-size: 26px;
   word-spacing: 6px;
-}
+} */
+
+/* ================== */
 
 .info {
   margin: 0 auto;
   max-width: 1100px;
-  display: grid;
-  /* padding: 0px 80px; */
-  /* background-color: #c3b711; */
-  
+  display: grid;  
 }
 
 .info h2 {
   color: white;
-  /* display: contents; */
-  /* text-align: right; */
-  /* font-size: 30px; */
   font-weight: 500;
 }
 
@@ -208,9 +190,9 @@ body {
   font-size: 14px;
   padding: 0px 6px;
   border: 2px #ffe100cd solid;
-  border-radius: 999px;
-  /* background: #07d48ccd; */
+  border-radius: 30px;
   color: #fff;
+  text-decoration: none;
   transition: 0.2s
 }
 
@@ -219,23 +201,8 @@ body {
   border: 2px #ffe10000 solid;  
   background: #ffe100cd;
   color: #0c0c0c;
-  transition: 0.2s
 }
 
-#btnup{
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 200px;
-  background: #ffe100cd;
-  cursor: pointer;
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  font-size: 25px;
-  display: none;
-  z-index: 100;
-}
 
 
 /* للتعديل على الاحجام عندما تصغر الشاشة */

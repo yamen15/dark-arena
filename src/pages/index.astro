@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro"
 ---
 
-<BaseLayout>
+ <BaseLayout>
 	<h2>homepage</h2>
 </BaseLayout>
 
@@ -20,10 +20,9 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
 </head>
 <body>
+ <div class="fullpage">
 
-    <div id="header"></div>
-
-   
+	
     <!-- <script>
         fetch("/components/header.html")
         .then(r => r.text())
@@ -34,10 +33,7 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
     <!-- ================(2)================= -->
 
-    <!-- <img class="hollow" src="img/wallpaper-hero.svg" alt=""> -->
-
-
-    <section class="author">
+    <!-- <section class="author">
     <div class="author-card">
     <img class="avatar" src="/public/img/avatar.png" alt="avatar">
     <h3 class="authors">yamen</h3>
@@ -59,13 +55,10 @@ import BaseLayout from "../layouts/BaseLayout.astro"
         <p class="about1">في عالمٍ امتلأ بالضجيج، اختار شابٌّ في بدايات طريقه مسارًا مختلفًا بين الجبال الرقمية. هناك، وُلدت الساحة المظلمة؛ مساحة للكتابة، 
       <br> وتبادل الرأي مع من يجرؤ على الدخول.
         </p>
-        <!-- <br> -->
+         <br> -->
         <!-- <p class="about2">مرحبا في مدونتي المتواضعة حيث أتكلم عن مختلف المواضيع التقنية</p> -->
-      </div>
-    </section>
-
-    <br>
-
+      <!-- </div>
+    </section> -->
 
 
     <!-- ================(4)================= -->
@@ -73,103 +66,99 @@ import BaseLayout from "../layouts/BaseLayout.astro"
     <!-- قالب للصفحة الخارجية للمقال -->
 
     <section>
+		
+		<div class="info">
+			<h2>نشر مؤخراً</h2>
+		</div>
 
-    <div class="info">
-        <h2>
-           نشر مؤخراً
-        </h2>
-    </div>
+		<section class="posts-grid">
 
-    <section class="posts-grid">
+		<article class="post-card">
+		<a href="posts/article-template.html" class="post-link">
 
-    <article class="post-card">
-    <a href="posts/article-template.html" class="post-link">
+			<div class="post-thumbnail">
+				<img src="/public/img/template.png" alt="article template photo">
+			</div>
 
-        <div class="post-thumbnail">
-            <img src="/public/img/template.png" alt="article template photo">
-            
-        </div>
+			<div class="post-body">
+				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
 
-        <div class="post-body">
-            <h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
+				<div class="post-meta">
+					<span class="post-views">عدد المشاهدات</span>
+					<span class="post-readtime">مدة القراءة</span>
+				</div>
 
-            <div class="post-meta">
-                <span class="post-views">عدد المشاهدات</span>
-                <span class="post-readtime">مدة القراءة</span>
-            </div>
+				<div>
+					<a class="tag" href="">لينيكس</a>
+					<a class="tag" href="">شروحات</a>
+				</div>
 
-            <div>
-                <span class="tag">لينيكس</span>
-                <span class="tag">شروحات</span>
-            </div>
-
-        </div>
-    </a>
-    </article>
+			</div>
+		</a>
+		</article>
 
 
 
 
-    <article class="post-card">
-    <a href="posts/article-template.html" class="post-link">
+		<article class="post-card">
+		<a href="posts/article-template.html" class="post-link">
 
-        <div class="post-thumbnail">
-            <img src="/public/img/template.png" alt="article template photo">
-            
-        </div>
+			<div class="post-thumbnail">
+				<img src="/public/img/template.png" alt="article template photo">
+				
+			</div>
 
-        <div class="post-body">
-            <h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
+			<div class="post-body">
+				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
 
-            <div class="post-meta">
-                <span class="post-views">عدد المشاهدات</span>
-                <span class="post-readtime">مدة القراءة</span>
-            </div>
+				<div class="post-meta">
+					<span class="post-views">عدد المشاهدات</span>
+					<span class="post-readtime">مدة القراءة</span>
+				</div>
 
-            <div>
-                <span class="tag">لينيكس</span>
-                <span class="tag">شروحات</span>
-            </div>
+				<div>
+					<a class="tag" href="">لينيكس</a>
+					<a class="tag" href="">شروحات</a>
+				</div>
 
-        </div>
-    </a>
-    </article>
+			</div>
+		</a>
+		</article>
 
 
 
-    <article class="post-card">
-    <a href="posts/article-template.html" class="post-link">
+		<article class="post-card">
+		<a href="posts/article-template.html" class="post-link">
 
-        <div class="post-thumbnail">
-            <img src="/public/img/template.png" alt="article template photo">
-            
-        </div>
+			<div class="post-thumbnail">
+				<img src="/public/img/template.png" alt="article template photo">
+				
+			</div>
 
-        <div class="post-body">
-            <h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
+			<div class="post-body">
+				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
 
-            <div class="post-meta">
-                <span class="post-views">عدد المشاهدات</span>
-                <span class="post-readtime">مدة القراءة</span>
-            </div>
+				<div class="post-meta">
+					<span class="post-views">عدد المشاهدات</span>
+					<span class="post-readtime">مدة القراءة</span>
+				</div>
 
-            <div>
-                <span class="tag">لينيكس</span>
-                <span class="tag">شروحات</span>
-            </div>
+				<div>
+					<a class="tag" href="">لينيكس</a>
+					<a class="tag" href="">شروحات</a>
+				</div>
 
-        </div>
-    </a>
-    </article>
-    
-    </section>
+			</div>
+		</a>
+		</article>
+		
+		</section>
     </section>
 
-    <button id="btnup">^</button>
 
-    <div id="footer"></div>
-
-
-    
+ </div>    
+ <BaseLayout>
+	<h2>homepage</h2>
+</BaseLayout>
 </body>
 </html>
