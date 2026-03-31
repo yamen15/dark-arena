@@ -4,12 +4,19 @@
 
 <html lang="ar" dir="rtl">
 	<head>
-        <meta charset="UTF-8">
+      <meta charset="UTF-8">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>الساحة المظلمة</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+
+
 	</head>
 	<body>
 		
@@ -54,7 +61,8 @@
   
     
     <footer class="copyright">
-        © 2026 Dark Arena
+      <a class="Aboutme" href="/about">About me</a>
+      <p>© 2026 Dark Arena</p>
     </footer>
     
 
@@ -89,12 +97,12 @@
 
 /* رأس الموقع */
 .header {
-    position: sticky;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   height: 75px;
-  background: #000000;
+  background: #181818;
   border-bottom: 1px #ffffff39 solid;
   z-index: 1000;
 }
@@ -130,7 +138,7 @@
 .search-box {
   display: flex;
   align-items: center;
-  border: 2px solid #303030;
+  border: 2px solid rgba(255,255,255,0.06);
   border-radius: 20px;
   overflow: hidden;
 
@@ -191,14 +199,26 @@
 /* =====================footer settings======================== */
 
 
-footer{
-  background: #000000;
-  color: white;
+footer {
+  background: #141416;
+  color: #bcbcbc;
   text-align: center;
-  padding: 18px;
-  width: 100%;
+  padding: 10px;
+  /* width: 100%; */
   font-size: 13px;
+ bottom: 0px;
+}
 
+footer p {
+  display: inline-block;
+  
+}
+
+a.Aboutme {
+  text-decoration: none;
+  display: inline-block;
+  color: #bcbcbc;
+  margin-left: 50px;
 }
 
 /* :global(html), :global(body) {
@@ -210,7 +230,10 @@ footer{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
+  background: #0F0F10;
+  margin: 0;
+  padding: 0;
+  font-family: "Playpen Sans Arabic", cursive;
 }
 
 main {
