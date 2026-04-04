@@ -73,24 +73,37 @@
 <style>
 
 *{
-
-    padding: 0;
+  padding: 0;
+color: white ;
 }
 
 
-         /* لتحديد لون تحديد النصوص */
+:global(body) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0F0F10;
+  margin: 0;
+  padding: 0;
+  font-family: "Playpen Sans Arabic", cursive;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+
+ /* لتحديد لون تحديد النصوص */
 ::selection {
-  background: #ffe1006a;
+  background: rgba(62, 166, 255, 0.35);
   color: #ffffff;
 }
 
 ::-moz-selection {
-  background: #ffe1006a;
+  background: rgba(62, 166, 255, 0.35);
   color: #ffffff;
 }
-
-
-
 
 
 /* =====================header settings======================== */
@@ -221,24 +234,5 @@ a.Aboutme {
   margin-left: 50px;
 }
 
-/* :global(html), :global(body) {
-  height: 100%;
-  margin: 0;
-} */
-
-:global(body) {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: #0F0F10;
-  margin: 0;
-  padding: 0;
-  font-family: "Playpen Sans Arabic", cursive;
-}
-
-main {
-  flex: 1;
-  width: 100%;
-}
 
 </style>

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro"
 ---
 <BaseLayout>
-	<link rel="stylesheet" href="/src/pages/styles.css">
+
     <section class="author">
     <div class="author-card">
     <img class="avatar" src="/public/img/avatar.png" alt="avatar">
@@ -30,3 +30,79 @@ import BaseLayout from "../layouts/BaseLayout.astro"
     </section>
 
 </BaseLayout>
+
+<style>
+    /* معلومات اول الصفحة */
+
+    /* بطاقة الهوية   */
+.author {
+  display: flex;
+    /* يعكس الأعمدة */
+  flex-direction: row-reverse;
+  min-height: 50vh;
+  padding: 145px 0px 0px 0px;
+  align-items: center;
+}
+
+.author-card{
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-content{
+  flex: 1;
+  padding-right: 20px;
+  padding-left: 0;
+  max-height: 250px;
+}
+
+.avatar{
+  width: 240px;
+  max-width: 100%;
+  display: block;
+}
+ 
+.authors{
+  font-size: 48px;
+  font-weight: 500;
+  margin: 20px 0 15px;
+  text-align: center;
+  color: white;
+
+}
+
+.links{
+  display: flex;
+  gap: 20px;
+}
+
+.links svg{
+  height: 30px;
+  fill: white;
+  transition: 0.3s;
+}
+
+.links svg:hover{
+  fill: #ffffff74;
+}
+
+
+/* نص المؤلف*/
+
+.author-content{
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.about1, .about2 {
+  text-align: center;
+  color: #EAEAEA;
+  font-size: 23px;
+  word-spacing: 6px;
+  line-height : 40px;
+}
+
+</style>
