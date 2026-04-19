@@ -1,0 +1,168 @@
+---
+// Layout.astro - القالب الرئيسي (هيدر + فوتر)
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- ✅ إصلاح: استخدام خط Vazirmatn بدلاً من IBM Plex Sans Arabic غير المُحمَّل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    <!-- ====== HEADER ====== -->
+    <header>
+      <nav class="nav-container">
+        <a href="/" class="logo">مدونتي</a>
+        <ul class="nav-links">
+          <!-- ✅ إضافة: تمييز الرابط النشط تلقائياً -->
+          <li><a href="/" class={currentPath === '/' ? 'active' : ''}>الرئيسية</a></li>
+          <li><a href="/posts" class={currentPath.startsWith('/posts') ? 'active' : ''}>المقالات</a></li>
+          <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>عن الموقع</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <p>جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
+
+<style is:global>
+  /* ✅ استيراد ملف CSS المشترك */
+  @import '../styles/styles.css';
+
+  /* لتحديد لون تحديد النصوص */
+  ::selection {
+    background: rgba(62, 166, 255, 0.35);
+    color: #ffffff;
+  }
+  ::-moz-selection {
+    background: rgba(62, 166, 255, 0.35);
+    color: #ffffff;
+  }
+
+  /* ريست عام */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ✅ إصلاح: استخدام الخط المُحمَّل فعلاً */
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: #111213;
+    color: #EAEAEA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+    padding: 40px 20px;
+  }
+
+  /* ====== HEADER ====== */
+  header {
+    background: #1A1B1E;
+    border-bottom: 1px solid #ffffff14;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* ✅ إضافة: backdrop blur لمظهر احترافي */
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .logo:hover {
+    color: #3EA6FF;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    color: #CDCDCD;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+    /* ✅ إضافة: خط سفلي للرابط النشط */
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #fff;
+    border-bottom-color: #3EA6FF;
+  }
+
+  /* ====== FOOTER ====== */
+  footer {
+    background: #1A1B1E;
+    border-top: 1px solid #ffffff14;
+    padding: 16px 8px;
+  }
+
+  .footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    color: #CDCDCD;
+    font-size: 14px;
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 600px) {
+    .nav-links {
+      gap: 16px;
+    }
+    .nav-links a {
+      font-size: 14px;
+    }
+  }
+</style>

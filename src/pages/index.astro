@@ -1,117 +1,35 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro"
+import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<BaseLayout>
-	<link rel="stylesheet" href="/src/pages/styles.css">
-
-
-
-<body>
- <div class="fullpage">
-
-
-
-    <!-- ================(2)================= -->
-
-
-
-    <!-- ================(4)================= -->
-
-    <!-- قالب للصفحة الخارجية للمقال -->
-
+<Layout title="مدونتي - الرئيسية">
+  <div class="fullpage">
     <section>
-		
-		<div class="info">
-			<h2>نشر مؤخراً</h2>
-		</div>
+      <div class="info">
+        <h2>الصفحة الرئيسية</h2>
+        <p class="subtitle">أحدث المقالات</p>
+      </div>
 
-		<section class="posts-grid">
-
-		<article class="post-card">
-		<a href="/posts" class="post-link">
-
-			<div class="post-thumbnail">
-				<img src="/public/img/template.png" alt="article template photo">
-			</div>
-
-			<div class="post-body">
-				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
-
-				<div class="post-meta">
-					<span class="post-views">عدد المشاهدات</span>
-					<span class="post-readtime">مدة القراءة</span>
-				</div>
-
-				<div>
-					<a class="tag" href="">لينيكس</a>
-					<a class="tag" href="">شروحات</a>
-				</div>
-
-			</div>
-		</a>
-		</article>
-
-
-
-
-		<article class="post-card">
-		<a href="posts/article-template.html" class="post-link">
-
-			<div class="post-thumbnail">
-				<img src="/public/img/template.png" alt="article template photo">
-				
-			</div>
-
-			<div class="post-body">
-				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
-
-				<div class="post-meta">
-					<span class="post-views">عدد المشاهدات</span>
-					<span class="post-readtime">مدة القراءة</span>
-				</div>
-
-				<div>
-					<a class="tag" href="">لينيكس</a>
-					<a class="tag" href="">شروحات</a>
-				</div>
-
-			</div>
-		</a>
-		</article>
-
-
-
-		<article class="post-card">
-		<a href="posts/article-template.html" class="post-link">
-
-			<div class="post-thumbnail">
-				<img src="/public/img/template.png" alt="article template photo">
-				
-			</div>
-
-			<div class="post-body">
-				<h3 class="post-title">ما تحتاج معرفته قبل الانتقال للينكس</h3>
-
-				<div class="post-meta">
-					<span class="post-views">عدد المشاهدات</span>
-					<span class="post-readtime">مدة القراءة</span>
-				</div>
-
-				<div>
-					<a class="tag" href="">لينيكس</a>
-					<a class="tag" href="">شروحات</a>
-				</div>
-
-			</div>
-		</a>
-		</article>
-		
-		</section>
+      <div class="posts-grid">
+        {sortedPosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            slug={post.id.replace('.md', '')}
+            image={post.data.image}
+            tags={post.data.tags}
+            readTime={post.data.readTime}
+            views={post.data.views}
+            description={post.data.description}
+          />
+        ))}
+      </div>
     </section>
-
-
- </div>   
-
-</body>
-</BaseLayout>
+  </div>
+</Layout>
