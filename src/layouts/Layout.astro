@@ -1,48 +1,48 @@
 ---
-// Layout.astro - القالب الرئيسي (هيدر + فوتر)
 interface Props {
   title: string;
   searchData?: { title: string; slug: string; description?: string; tags: string[] }[];
 }
-
 const { title, searchData = [] } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
-
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap" rel="stylesheet">
   </head>
   <body>
 
-    <!-- ====== HEADER ====== -->
     <header>
       <nav class="nav-container">
         <a href="/" class="logo">الساحة المظلمة</a>
-        <ul class="nav-links">
-          
-          <li><a href="/" class={currentPath === '/' ? 'active' : ''}>الرئيسية</a></li>
-          <li><a href="/posts" class={currentPath.startsWith('/posts') ? 'active' : ''}>المقالات</a></li>
-          <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>عن الموقع</a></li>
-        </ul>
-                <!-- زر البحث -->
-        <button class="search-btn" id="searchBtn" aria-label="بحث">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
+
+        <!-- زر الهامبرغر - يظهر فقط على الموبايل -->
+        <button class="menu-btn" id="menuBtn" aria-label="القائمة">
+          <span></span><span></span><span></span>
         </button>
+
+        <div class="nav-right" id="navRight">
+          <ul class="nav-links">
+            <li><a href="/" class={currentPath === '/' ? 'active' : ''}>الرئيسية</a></li>
+            <li><a href="/posts" class={currentPath.startsWith('/posts') ? 'active' : ''}>المقالات</a></li>
+            <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>عن الموقع</a></li>
+          </ul>
+          <button class="search-btn" id="searchBtn" aria-label="بحث">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
       </nav>
     </header>
 
-
-     <!-- نافذة البحث -->
+    <!-- نافذة البحث -->
     <div class="search-overlay" id="searchOverlay">
       <div class="search-modal">
         <div class="search-input-wrap">
@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
           <input type="text" id="searchInput" placeholder="ابحث في المقالات..." autocomplete="off" />
-          <kbd class="search-kbd">Ees</kbd>
+          <kbd class="search-kbd">ESC</kbd>
         </div>
         <div class="search-results" id="searchResults">
           <p class="search-hint">اكتب للبحث في المقالات...</p>
@@ -58,16 +58,13 @@ const currentPath = Astro.url.pathname;
       </div>
     </div>
 
-    <main>
-      <slot />
-    </main>
+    <main><slot /></main>
 
     <footer>
       <div class="footer-container">
         <p>جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
       </div>
     </footer>
-
   </body>
 </html>
 
@@ -77,96 +74,71 @@ const currentPath = Astro.url.pathname;
   const searchOverlay = document.getElementById('searchOverlay');
   const searchInput   = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
- 
+  const menuBtn       = document.getElementById('menuBtn');
+  const navRight      = document.getElementById('navRight');
+
+  // هامبرغر
+  menuBtn.addEventListener('click', () => {
+    navRight.classList.toggle('open');
+    menuBtn.classList.toggle('open');
+  });
+
+  // إغلاق القائمة عند الضغط على رابط
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navRight.classList.remove('open');
+      menuBtn.classList.remove('open');
+    });
+  });
+
   function openSearch() {
     searchOverlay.classList.add('active');
     setTimeout(() => searchInput.focus(), 50);
     document.body.style.overflow = 'hidden';
   }
- 
   function closeSearch() {
     searchOverlay.classList.remove('active');
     searchInput.value = '';
     searchResults.innerHTML = '<p class="search-hint">اكتب للبحث في المقالات...</p>';
     document.body.style.overflow = '';
   }
- 
+
   searchBtn.addEventListener('click', openSearch);
- 
-  searchOverlay.addEventListener('click', (e) => {
-    if (e.target === searchOverlay) closeSearch();
-  });
- 
+  searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) closeSearch(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSearch();
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      searchOverlay.classList.contains('active') ? closeSearch() : openSearch();
-    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); searchOverlay.classList.contains('active') ? closeSearch() : openSearch(); }
   });
- 
+
   function highlight(text, query) {
     const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
     return text.replace(regex, '<mark>$1</mark>');
   }
- 
+
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.trim().toLowerCase();
- 
-    if (!query) {
-      searchResults.innerHTML = '<p class="search-hint">اكتب للبحث في المقالات...</p>';
-      return;
-    }
- 
+    if (!query) { searchResults.innerHTML = '<p class="search-hint">اكتب للبحث في المقالات...</p>'; return; }
     const results = posts.filter((post) =>
       post.title.toLowerCase().includes(query) ||
       (post.description && post.description.toLowerCase().includes(query)) ||
       post.tags.some((tag) => tag.toLowerCase().includes(query))
     );
- 
-    if (results.length === 0) {
-      searchResults.innerHTML = `<p class="search-empty">لا توجد نتائج لـ "<strong>${query}</strong>"</p>`;
-      return;
-    }
- 
+    if (results.length === 0) { searchResults.innerHTML = `<p class="search-empty">لا توجد نتائج لـ "<strong>${query}</strong>"</p>`; return; }
     searchResults.innerHTML = results.map((post) => `
       <a class="search-result-item" href="/posts/${post.slug}">
         <span class="result-title">${highlight(post.title, query)}</span>
         ${post.description ? `<span class="result-desc">${highlight(post.description, query)}</span>` : ''}
-        <div class="result-tags">
-          ${post.tags.map(tag => `<span class="result-tag">${tag}</span>`).join('')}
-        </div>
+        <div class="result-tags">${post.tags.map(tag => `<span class="result-tag">${tag}</span>`).join('')}</div>
       </a>
     `).join('');
   });
 </script>
 
-
-
-
-
 <style is:global>
-  /* ✅ استيراد ملف CSS المشترك */
   @import '../styles/styles.css';
+  ::selection { background: rgba(62,166,255,0.35); color:#fff; }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 
-  /* لتحديد لون تحديد النصوص */
-  ::selection {
-    background: rgba(62, 166, 255, 0.35);
-    color: #ffffff;
-  }
-  ::-moz-selection {
-    background: rgba(62, 166, 255, 0.35);
-    color: #ffffff;
-  }
-
-  /* ريست عام */
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* ✅ إصلاح: استخدام الخط المُحمَّل فعلاً */
   body {
     font-family: "Playpen Sans Arabic", cursive;
     background: #111213;
@@ -176,195 +148,204 @@ const currentPath = Astro.url.pathname;
     flex-direction: column;
   }
 
-  main {
-    flex: 1;
-    padding: 40px 20px;
-  }
+  main { flex:1; padding: 40px 20px; }
 
   /* ====== HEADER ====== */
   header {
-    background: #1A1B1E;
+    background: #1A1B1Ecc;
     border-bottom: 1px solid #ffffff14;
     position: sticky;
     top: 0;
-    z-index: 100;
-    /* إضافة: backdrop blur لمظهر احترافي */
+    z-index: 200;
     backdrop-filter: blur(12px);
   }
 
   .nav-container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 16px 20px;
+    padding: 0 20px;
+    height: 60px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 16px;
   }
 
   .logo {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     color: #fff;
     text-decoration: none;
     transition: color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .logo:hover { color: #3EA6FF; }
+
+  /* اليمين: روابط + زر بحث */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
-
-.nav-links { 
-  list-style: none; 
-  display: flex; 
-  gap: 28px;
-  margin-right:  auto;
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 24px;
   }
-
   .nav-links a {
     color: #CDCDCD;
     text-decoration: none;
-    font-size: 16px;
-    transition:  0.2s;
+    font-size: 15px;
+    transition: color 0.2s;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
   }
+  .nav-links a:hover, .nav-links a.active { color:#fff; border-bottom-color:#3EA6FF; }
 
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: #fff;
-    border-bottom-color: #3EA6FF;
-  }
-
-
-   /* زر البحث */
   .search-btn {
     background: #ffffff0f;
     border: 1px solid #ffffff18;
     color: #CDCDCD;
     width: 36px; height: 36px;
     border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items:center; justify-content:center;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background 0.2s, color 0.2s;
     flex-shrink: 0;
-    margin-right: 20px;
   }
-  .search-btn:hover { background: #ffffff18; color: #fff; border-color: #ffffff30; }
- 
-  /* OVERLAY */
+  .search-btn:hover { background:#ffffff18; color:#fff; }
+
+  /* زر الهامبرغر - مخفي على الديسكتوب */
+  .menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .menu-btn span {
+    display: block;
+    width: 22px; height: 2px;
+    background: #CDCDCD;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-btn.open span:nth-child(2) { opacity: 0; }
+  .menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ====== SEARCH ====== */
   .search-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
     backdrop-filter: blur(6px);
     z-index: 999;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    display: flex; align-items: flex-start; justify-content: center;
     padding-top: 80px;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transition: opacity 0.2s ease;
   }
-  .search-overlay.active { opacity: 1; pointer-events: all; }
- 
-  /* MODAL */
+  .search-overlay.active { opacity:1; pointer-events:all; }
   .search-modal {
-    background: #1c1d20;
-    border: 1px solid #ffffff1a;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 580px;
-    margin: 0 20px;
-    overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-    transform: translateY(-16px);
-    transition: transform 0.25s ease;
+    background:#1c1d20; border:1px solid #ffffff1a; border-radius:16px;
+    width:100%; max-width:580px; margin:0 16px;
+    overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.7);
+    transform:translateY(-16px); transition:transform 0.25s ease;
   }
-  .search-overlay.active .search-modal { transform: translateY(0); }
- 
-  /* INPUT */
+  .search-overlay.active .search-modal { transform:translateY(0); }
   .search-input-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 18px;
-    border-bottom: 1px solid #ffffff10;
+    display:flex; align-items:center; gap:12px;
+    padding:16px 18px; border-bottom:1px solid #ffffff10;
   }
-  .search-icon-input { color: #555; flex-shrink: 0; }
- 
+  .search-icon-input { color:#555; flex-shrink:0; }
   #searchInput {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'Vazirmatn', sans-serif;
+    flex:1; background:transparent; border:none; outline:none;
+    color:#fff; font-size:16px; font-family:"Playpen Sans Arabic",cursive;
   }
-  #searchInput::placeholder { color: #555; }
- 
+  #searchInput::placeholder { color:#555; }
   .search-kbd {
-    font-size: 11px;
-    padding: 6px 6px;
-    background: #ffffff0a;
-    border: 1px solid #ffffff14;
-    border-radius: 5px;
-    color: #555;
-    font-family: 'Vazirmatn', sans-serif;
-    flex-shrink: 0;
+    font-size:11px; padding:3px 6px;
+    background:#ffffff0a; border:1px solid #ffffff14;
+    border-radius:5px; color:#555; flex-shrink:0;
   }
- 
-  /* RESULTS */
-  .search-results { max-height: 420px; overflow-y: auto; padding: 8px; }
- 
-  .search-hint, .search-empty {
-    text-align: center; color: #555; font-size: 14px; padding: 36px 16px;
-  }
-  .search-empty strong { color: #CDCDCD; }
- 
+  .search-results { max-height:400px; overflow-y:auto; padding:8px; }
+  .search-hint, .search-empty { text-align:center; color:#555; font-size:14px; padding:32px 16px; }
+  .search-empty strong { color:#CDCDCD; }
   .search-result-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 13px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: background 0.15s, border-color 0.15s;
+    display:flex; flex-direction:column; gap:5px;
+    padding:12px 14px; border-radius:10px; text-decoration:none;
+    border:1px solid transparent; transition:background 0.15s, border-color 0.15s;
   }
-  .search-result-item:hover { background: #ffffff08; border-color: #ffffff10; }
- 
-  .result-title { font-size: 15px; font-weight: 500; color: #fff; line-height: 1.5; }
-  .result-desc {
-    font-size: 13px; color: #777; line-height: 1.5;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .result-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
-  .result-tag {
-    font-size: 11px; padding: 2px 8px;
-    background: #ffffff08; border: 1px solid #ffffff0f;
-    border-radius: 999px; color: #666;
-  }
- 
-  mark { background: transparent; color: #3EA6FF; font-weight: 600; }
+  .search-result-item:hover { background:#ffffff08; border-color:#ffffff10; }
+  .result-title { font-size:15px; font-weight:500; color:#fff; line-height:1.5; }
+  .result-desc { font-size:13px; color:#777; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .result-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+  .result-tag { font-size:11px; padding:2px 8px; background:#ffffff08; border:1px solid #ffffff0f; border-radius:999px; color:#666; }
+  mark { background:transparent; color:#3EA6FF; font-weight:600; }
 
   /* ====== FOOTER ====== */
-  footer {
-    background: #1A1B1E;
-    border-top: 1px solid #ffffff14;
-    padding: 16px 8px;
-  }
-
-  .footer-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    text-align: center;
-    color: #CDCDCD;
-    font-size: 14px;
-  }
+  footer { background:#1A1B1E; border-top:1px solid #ffffff14; padding:16px 20px; }
+  .footer-container { max-width:1100px; margin:0 auto; text-align:center; color:#CDCDCD; font-size:14px; }
 
   /* ====== RESPONSIVE ====== */
-  @media (max-width: 600px) {
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 14px; }
-    .search-overlay { padding-top: 50px; }
+
+  /* تابلت */
+  @media (max-width: 768px) {
+    main { padding: 28px 16px; }
+
+    .menu-btn { display: flex; }
+
+    .nav-right {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 0; left: 0;
+      background: #1A1B1Ef5;
+      border-bottom: 1px solid #ffffff14;
+      backdrop-filter: blur(12px);
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px 20px 16px;
+      gap: 0;
+    }
+    .nav-right.open { display: flex; }
+
+    .nav-links {
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-links li a {
+      display: block;
+      padding: 12px 0;
+      font-size: 16px;
+      border-bottom: 1px solid #ffffff08;
+    }
+    .nav-links li:last-child a { border-bottom: none; }
+    .nav-links a { border-bottom-color: transparent !important; }
+    .nav-links a.active { color: #3EA6FF; }
+
+    .search-btn {
+      width: 100%; height: 40px;
+      border-radius: 8px;
+      margin-top: 10px;
+      justify-content: center;
+      gap: 8px;
+    }
+    .search-btn::after { content: "بحث"; font-size: 14px; }
+
+    .search-overlay { padding-top: 20px; align-items: center; }
+  }
+
+  /* موبايل صغير */
+  @media (max-width: 480px) {
+    .logo { font-size: 17px; }
+    main { padding: 20px 12px; }
   }
 </style>

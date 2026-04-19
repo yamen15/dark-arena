@@ -43,17 +43,18 @@ html {
   padding: 32px 0 80px;
 }
 
-/* استجابة للشاشات المتوسطة */
+/* تابلت */
 @media (max-width: 900px) {
-  .posts-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .posts-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-/* استجابة للشاشات الصغيرة */
-@media (max-width: 600px) {
+ 
+/* موبايل */
+@media (max-width: 560px) {
   .posts-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
+    padding: 20px 0 40px;
   }
+  .info h2 { font-size: 19px; }
 }
+ 
