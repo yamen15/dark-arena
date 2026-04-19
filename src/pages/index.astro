@@ -20,13 +20,12 @@ const sortedPosts = allPosts.sort(
       <div class="posts-grid">
         {sortedPosts.map((post) => (
           <PostCard
+            image={post.data.image}
             title={post.data.title}
             slug={post.id.replace('.md', '')}
-            image={post.data.image}
             tags={post.data.tags}
             readTime={post.data.readTime}
             views={post.data.views}
-            description={post.data.description}
           />
         ))}
       </div>

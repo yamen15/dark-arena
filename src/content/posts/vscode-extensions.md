@@ -2,10 +2,9 @@
 title: "أفضل إضافات VS Code للمطورين العرب"
 pubDate: 2024-03-15
 tags: ["VS Code", "أدوات", "إنتاجية"]
-image: "/img/template.png"
+image: "/img/template1.png"
 readTime: "5 دقائق"
 views: 1870
-description: "مجموعة من أفضل الإضافات التي ستحسّن تجربتك مع VS Code"
 ---
 
 ## مقدمة

@@ -14,7 +14,6 @@ const posts = defineCollection({
     image: z.string().default('/img/template.png'),
     readTime: z.string().default('5 دقائق'),
     views: z.number().default(0),
-    description: z.string().optional(),
   }),
 });
  

@@ -7,27 +7,24 @@ interface Props {
   tags: string[];
   readTime: string;
   views: number;
-  // ✅ إضافة: دعم الوصف الاختياري
-  description?: string;
+
 }
 
-const { title, slug, image, tags, readTime, views, description } = Astro.props;
+const { title, slug, image, tags, readTime, views } = Astro.props;
 ---
 
 <article class="post-card">
   <a href={`/posts/${slug}`} class="post-link">
 
     <div class="post-thumbnail">
-      <!-- ✅ إصلاح: إضافة loading="lazy" لتحسين الأداء -->
-      <!-- ✅ إصلاح: إضافة decoding="async" -->
+      <!--  إصلاح: إضافة loading="lazy" لتحسين الأداء -->
+      <!--  إصلاح: إضافة decoding="async" -->
       <img src={image} alt={title} loading="lazy" />
     </div>
 
     <div class="post-body">
       <h3 class="post-title">{title}</h3>
 
-      <!-- ✅ إضافة: عرض الوصف إن وُجد -->
-      {description && <p class="post-description">{description}</p>}
 
       <div class="post-meta">
         <span class="post-views">👁 {views.toLocaleString('ar-SA')} مشاهدة</span>
@@ -36,7 +33,6 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
 
       <div class="tags-container">
         {tags.map((tag) => (
-          <!-- ✅ إصلاح: منع انتشار الحدث لتجنب تفعيل رابط المقال عند الضغط على الوسم -->
           <a
             class="tag"
             href={`/tags/${tag}`}
@@ -53,10 +49,11 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
 .post-card {
   background: #1A1B1E;
   border-radius: 14px;
-  border: 1px solid #ffffff18;
+  border: 2px dashed #ffffff18;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  /* ✅ إصلاح: تغيير border من dashed إلى solid لمظهر أنظف */
+  display: flex;
+  flex-direction: column;
 }
 
 .post-card:hover {
@@ -76,6 +73,7 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
 
 .post-thumbnail {
   overflow: hidden;
+  
 }
 
 .post-thumbnail img {
@@ -83,7 +81,6 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
   display: block;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  /* ✅ إضافة: تكبير خفيف عند التمرير للصورة */
   transition: transform 0.35s ease;
 }
 
@@ -106,18 +103,7 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
   line-height: 1.6;
 }
 
-/* ✅ إضافة: تنسيق الوصف */
-.post-description {
-  font-size: 14px;
-  color: #AAAAAA;
-  margin-bottom: 10px;
-  line-height: 1.6;
-  /* قطع النص عند سطرين */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+
 
 .post-meta {
   display: flex;
@@ -125,7 +111,7 @@ const { title, slug, image, tags, readTime, views, description } = Astro.props;
   font-size: 13px;
   color: #CDCDCD;
   margin-bottom: 12px;
-  /* ✅ إضافة: دفع الميتا للأسفل تلقائياً */
+  /*  إضافة: دفع الميتا للأسفل تلقائياً */
   margin-top: auto;
   padding-top: 10px;
 }
