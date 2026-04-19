@@ -27,8 +27,8 @@ const { title, slug, image, tags, readTime, views } = Astro.props;
 
 
       <div class="post-meta">
-        <span class="post-views">👁 {views.toLocaleString('ar-SA')} مشاهدة</span>
-        <span class="post-readtime">⏱ {readTime}</span>
+        <span class="post-views"> 👁   {views.toLocaleString('en')} </span>
+        <span class="post-readtime">{readTime}</span>
       </div>
 
       <div class="tags-container">
@@ -97,7 +97,7 @@ const { title, slug, image, tags, readTime, views } = Astro.props;
 
 .post-title {
   margin: 0 0 8px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 17px;
   color: #FFFFFF;
   line-height: 1.6;

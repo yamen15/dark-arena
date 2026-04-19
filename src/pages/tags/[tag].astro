@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  // جمع كل التاقات الفريدة
+  const allTags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  // لكل تاق، أرجع المقالات التي تحتوي عليه
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts: posts.filter((post) => post.data.tags.includes(tag)),
+    },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+const sortedPosts = posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title={`${tag} - الساحة المظلمة`}>
+  <div class="fullpage">
+
+    <div class="info">
+      <h2>#{tag}</h2>
+      <p class="subtitle">{posts.length} مقال</p>
+    </div>
+
+    <div class="posts-grid">
+      {sortedPosts.map((post) => (
+        <PostCard
+          title={post.data.title}
+          slug={post.id.replace('.md', '')}
+          image={post.data.image}
+          tags={post.data.tags}
+          readTime={post.data.readTime}
+          views={post.data.views}
+        />
+      ))}
+    </div>
+
+  </div>
+</Layout>

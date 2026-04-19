@@ -15,22 +15,18 @@ const currentPath = Astro.url.pathname;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- ✅ إصلاح: استخدام خط Vazirmatn بدلاً من IBM Plex Sans Arabic غير المُحمَّل -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@100..800&display=swap" rel="stylesheet">
   </head>
   <body>
 
     <!-- ====== HEADER ====== -->
     <header>
       <nav class="nav-container">
-        <a href="/" class="logo">مدونتي</a>
+        <a href="/" class="logo">الساحة المظلمة</a>
         <ul class="nav-links">
-          <!-- ✅ إضافة: تمييز الرابط النشط تلقائياً -->
+          
           <li><a href="/" class={currentPath === '/' ? 'active' : ''}>الرئيسية</a></li>
           <li><a href="/posts" class={currentPath.startsWith('/posts') ? 'active' : ''}>المقالات</a></li>
           <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>عن الموقع</a></li>
@@ -74,7 +70,7 @@ const currentPath = Astro.url.pathname;
 
   /* ✅ إصلاح: استخدام الخط المُحمَّل فعلاً */
   body {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: "Playpen Sans Arabic", cursive;
     background: #111213;
     color: #EAEAEA;
     min-height: 100vh;
@@ -108,16 +104,13 @@ const currentPath = Astro.url.pathname;
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     color: #fff;
     text-decoration: none;
     transition: color 0.2s;
   }
 
-  .logo:hover {
-    color: #3EA6FF;
-  }
 
   .nav-links {
     list-style: none;
@@ -128,9 +121,8 @@ const currentPath = Astro.url.pathname;
   .nav-links a {
     color: #CDCDCD;
     text-decoration: none;
-    font-size: 15px;
-    transition: color 0.2s;
-    /* ✅ إضافة: خط سفلي للرابط النشط */
+    font-size: 16px;
+    transition:  0.2s;
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
   }
