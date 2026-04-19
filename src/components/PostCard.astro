@@ -19,7 +19,7 @@ const { title, slug, image, tags, readTime, views } = Astro.props;
       <h3 class="post-title">{title}</h3>
       <div class="post-meta">
         <span>👁 {views.toLocaleString('en')}</span>
-        <span>⏱ {readTime}</span>
+        <span>{readTime}</span>
       </div>
       <div class="tags-container">
         {tags.map((tag) => (
@@ -75,7 +75,7 @@ const { title, slug, image, tags, readTime, views } = Astro.props;
 }
 
 .post-title {
-  margin: 0;
+  margin-bottom: 3px;
   font-weight: 500;
   font-size: 16px;
   color: #fff;
