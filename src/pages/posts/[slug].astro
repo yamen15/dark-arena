@@ -10,13 +10,21 @@ export async function getStaticPaths() {
   }));
 }
 
+// في [slug].astro أو about.astro
+const allPosts = await getCollection('posts');
+const searchData = allPosts.map((post) => ({
+  title: post.data.title,
+  slug: post.id.replace('.md', ''),
+  tags: post.data.tags,
+}));
+
 const { post } = Astro.props;
 
 // ✅ Astro 5: render() تُستورد من 'astro:content' مباشرة
 const { Content } = await render(post);
 ---
 
-<Layout title={`${post.data.title} - مدونتي`}>
+<Layout title={`${post.data.title} - مدونتي`} searchData={searchData}>
   <article class="post-page">
 
 

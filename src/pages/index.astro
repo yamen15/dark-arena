@@ -7,9 +7,16 @@ const allPosts = await getCollection('posts');
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// نجهز بيانات البحث ونمررها لـ Layout
+const searchData = allPosts.map((post) => ({
+  title: post.data.title,
+  slug: post.id.replace('.md', ''),
+  tags: post.data.tags,
+}));
 ---
 
-<Layout title="الساحة المظلمة">
+<Layout title="الساحة المظلمة" searchData={searchData}>
   <div class="fullpage">
     <section>
       <div class="info">

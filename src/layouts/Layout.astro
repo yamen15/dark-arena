@@ -2,9 +2,10 @@
 // Layout.astro - القالب الرئيسي (هيدر + فوتر)
 interface Props {
   title: string;
+  searchData?: { title: string; slug: string; description?: string; tags: string[] }[];
 }
 
-const { title } = Astro.props;
+const { title, searchData = [] } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -31,8 +32,31 @@ const currentPath = Astro.url.pathname;
           <li><a href="/posts" class={currentPath.startsWith('/posts') ? 'active' : ''}>المقالات</a></li>
           <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>عن الموقع</a></li>
         </ul>
+                <!-- زر البحث -->
+        <button class="search-btn" id="searchBtn" aria-label="بحث">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
       </nav>
     </header>
+
+
+     <!-- نافذة البحث -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-modal">
+        <div class="search-input-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon-input">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="ابحث في المقالات..." autocomplete="off" />
+          <kbd class="search-kbd">Ees</kbd>
+        </div>
+        <div class="search-results" id="searchResults">
+          <p class="search-hint">اكتب للبحث في المقالات...</p>
+        </div>
+      </div>
+    </div>
 
     <main>
       <slot />
@@ -46,6 +70,80 @@ const currentPath = Astro.url.pathname;
 
   </body>
 </html>
+
+<script define:vars={{ searchData }}>
+  const posts = searchData;
+  const searchBtn     = document.getElementById('searchBtn');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchInput   = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+ 
+  function openSearch() {
+    searchOverlay.classList.add('active');
+    setTimeout(() => searchInput.focus(), 50);
+    document.body.style.overflow = 'hidden';
+  }
+ 
+  function closeSearch() {
+    searchOverlay.classList.remove('active');
+    searchInput.value = '';
+    searchResults.innerHTML = '<p class="search-hint">اكتب للبحث في المقالات...</p>';
+    document.body.style.overflow = '';
+  }
+ 
+  searchBtn.addEventListener('click', openSearch);
+ 
+  searchOverlay.addEventListener('click', (e) => {
+    if (e.target === searchOverlay) closeSearch();
+  });
+ 
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSearch();
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      searchOverlay.classList.contains('active') ? closeSearch() : openSearch();
+    }
+  });
+ 
+  function highlight(text, query) {
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+ 
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+ 
+    if (!query) {
+      searchResults.innerHTML = '<p class="search-hint">اكتب للبحث في المقالات...</p>';
+      return;
+    }
+ 
+    const results = posts.filter((post) =>
+      post.title.toLowerCase().includes(query) ||
+      (post.description && post.description.toLowerCase().includes(query)) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(query))
+    );
+ 
+    if (results.length === 0) {
+      searchResults.innerHTML = `<p class="search-empty">لا توجد نتائج لـ "<strong>${query}</strong>"</p>`;
+      return;
+    }
+ 
+    searchResults.innerHTML = results.map((post) => `
+      <a class="search-result-item" href="/posts/${post.slug}">
+        <span class="result-title">${highlight(post.title, query)}</span>
+        ${post.description ? `<span class="result-desc">${highlight(post.description, query)}</span>` : ''}
+        <div class="result-tags">
+          ${post.tags.map(tag => `<span class="result-tag">${tag}</span>`).join('')}
+        </div>
+      </a>
+    `).join('');
+  });
+</script>
+
+
+
+
 
 <style is:global>
   /* ✅ استيراد ملف CSS المشترك */
@@ -100,7 +198,7 @@ const currentPath = Astro.url.pathname;
     padding: 16px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .logo {
@@ -112,10 +210,11 @@ const currentPath = Astro.url.pathname;
   }
 
 
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 28px;
+.nav-links { 
+  list-style: none; 
+  display: flex; 
+  gap: 28px;
+  margin-right:  auto;
   }
 
   .nav-links a {
@@ -132,6 +231,120 @@ const currentPath = Astro.url.pathname;
     color: #fff;
     border-bottom-color: #3EA6FF;
   }
+
+
+   /* زر البحث */
+  .search-btn {
+    background: #ffffff0f;
+    border: 1px solid #ffffff18;
+    color: #CDCDCD;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+  .search-btn:hover { background: #ffffff18; color: #fff; border-color: #ffffff30; }
+ 
+  /* OVERLAY */
+  .search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .search-overlay.active { opacity: 1; pointer-events: all; }
+ 
+  /* MODAL */
+  .search-modal {
+    background: #1c1d20;
+    border: 1px solid #ffffff1a;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    transform: translateY(-16px);
+    transition: transform 0.25s ease;
+  }
+  .search-overlay.active .search-modal { transform: translateY(0); }
+ 
+  /* INPUT */
+  .search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border-bottom: 1px solid #ffffff10;
+  }
+  .search-icon-input { color: #555; flex-shrink: 0; }
+ 
+  #searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Vazirmatn', sans-serif;
+  }
+  #searchInput::placeholder { color: #555; }
+ 
+  .search-kbd {
+    font-size: 11px;
+    padding: 6px 6px;
+    background: #ffffff0a;
+    border: 1px solid #ffffff14;
+    border-radius: 5px;
+    color: #555;
+    font-family: 'Vazirmatn', sans-serif;
+    flex-shrink: 0;
+  }
+ 
+  /* RESULTS */
+  .search-results { max-height: 420px; overflow-y: auto; padding: 8px; }
+ 
+  .search-hint, .search-empty {
+    text-align: center; color: #555; font-size: 14px; padding: 36px 16px;
+  }
+  .search-empty strong { color: #CDCDCD; }
+ 
+  .search-result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .search-result-item:hover { background: #ffffff08; border-color: #ffffff10; }
+ 
+  .result-title { font-size: 15px; font-weight: 500; color: #fff; line-height: 1.5; }
+  .result-desc {
+    font-size: 13px; color: #777; line-height: 1.5;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .result-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+  .result-tag {
+    font-size: 11px; padding: 2px 8px;
+    background: #ffffff08; border: 1px solid #ffffff0f;
+    border-radius: 999px; color: #666;
+  }
+ 
+  mark { background: transparent; color: #3EA6FF; font-weight: 600; }
 
   /* ====== FOOTER ====== */
   footer {
@@ -150,11 +363,8 @@ const currentPath = Astro.url.pathname;
 
   /* ====== RESPONSIVE ====== */
   @media (max-width: 600px) {
-    .nav-links {
-      gap: 16px;
-    }
-    .nav-links a {
-      font-size: 14px;
-    }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 14px; }
+    .search-overlay { padding-top: 50px; }
   }
 </style>
