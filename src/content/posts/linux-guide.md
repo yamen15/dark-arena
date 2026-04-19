@@ -3,7 +3,7 @@ image: "/img/template.png"
 title: "ما تحتاج معرفته قبل الانتقال للينكس"
 pubDate: 2024-03-10
 tags: ["لينكس", "شروحات", "مبتدئين"]
-readTime: "7 دقائق"
+readTime: "7 دقائق قراءة"
 views: 3420
 ---
 
