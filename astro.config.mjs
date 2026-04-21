@@ -1,6 +1,6 @@
-// // astro.config.mjs
-// import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config'
 
-// export default defineConfig({
-//   // site: 'https://myblog.com', // ضع رابط موقعك هنا عند النشر
-// });
+export default defineConfig({
+  site: 'https://yamen15.github.io',
+  base: '/dark-arena',
+})
