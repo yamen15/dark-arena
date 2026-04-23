@@ -18,123 +18,161 @@ const { title, slug, image, tags, readTime, views } = Astro.props;
     <div class="post-body">
       <h3 class="post-title">{title}</h3>
       <div class="post-meta">
-        <span>👁 {views.toLocaleString('en')}</span>
+        <span>👁 {views.toLocaleString("en")}</span>
         <span>{readTime}</span>
       </div>
       <div class="tags-container">
-        {tags.map((tag) => (
-          <a class="tag" href={`/tags/${tag}`} onclick="event.stopPropagation()">{tag}</a>
-        ))}
+        {
+          tags.map((tag) => (
+            <a
+              class="tag"
+              href={`/tags/${tag}`}
+              onclick="event.stopPropagation()"
+            >
+              {tag}
+            </a>
+          ))
+        }
       </div>
     </div>
   </a>
 </article>
 
 <style>
-.post-card {
-  background: #1A1B1E;
-  border-radius: 14px;
-  border: 2px dashed #ffffff18;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-  background: #202226;
-  border-color: #ffffff28;
-}
+  .post-card {
+    background: #1a1b1e;
+    border-radius: 14px;
+    border: 2px dashed #ffffff18;
+    overflow: hidden;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    background: #202226;
+    border-color: #ffffff28;
+  }
 
-.post-link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
-.post-thumbnail { overflow: hidden; }
-.post-thumbnail img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-}
-.post-card:hover .post-thumbnail img { transform: scale(1.04); }
-
-.post-body {
-  padding: 14px 16px 16px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 10px;
-}
-
-.post-title {
-  margin-bottom: 3px;
-  font-weight: 500;
-  font-size: 16px;
-  color: #fff;
-  line-height: 1.6;
-  /* منع العنوان الطويل من كسر التصميم */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.post-meta {
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-  color: #CDCDCD;
-  margin-top: auto;
-}
-
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag {
-  font-size: 12px;
-  padding: 3px 10px;
-  border: 1px solid #ffffff14;
-  background: #ffffff0a;
-  border-radius: 999px;
-  color: #CDCDCD;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  white-space: nowrap;
-}
-.tag:hover { background:#3ea6ff20; color:#3EA6FF; border-color:#3ea6ff40; }
-
-/* على الموبايل: بطاقة أفقية */
-@media (max-width: 560px) {
-  .post-card { border-radius: 12px; }
-
-  .post-link { flex-direction: row; }
+  .post-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
 
   .post-thumbnail {
-    width: 120px;
-    flex-shrink: 0;
+    overflow: hidden;
   }
   .post-thumbnail img {
-    aspect-ratio: 1/1;
-    height: 100%;
-    width: 120px;
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
     object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+  .post-card:hover .post-thumbnail img {
+    transform: scale(1.04);
   }
 
-  .post-body { padding: 12px; gap: 6px; }
-  .post-title { font-size: 14px; -webkit-line-clamp: 2; }
-  .post-meta { font-size: 12px; }
-  .tags-container { gap: 4px; }
-  .tag { font-size: 11px; padding: 2px 8px; }
-}
+  .post-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+  }
+
+  .post-title {
+    margin-bottom: 3px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.6;
+    /* منع العنوان الطويل من كسر التصميم */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #cdcdcd;
+    margin-top: auto;
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border: 1px solid #ffffff14;
+    background: #ffffff0a;
+    border-radius: 999px;
+    color: #cdcdcd;
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+    white-space: nowrap;
+  }
+  .tag:hover {
+    background: #3ea6ff20;
+    color: #3ea6ff;
+    border-color: #3ea6ff40;
+  }
+
+  /* على الموبايل: بطاقة أفقية */
+  @media (max-width: 560px) {
+    .post-card {
+      border-radius: 12px;
+    }
+
+    .post-link {
+      flex-direction: row;
+    }
+
+    .post-thumbnail {
+      width: 120px;
+      flex-shrink: 0;
+    }
+    .post-thumbnail img {
+      aspect-ratio: 1/1;
+      height: 100%;
+      width: 120px;
+      object-fit: cover;
+    }
+
+    .post-body {
+      padding: 12px;
+      gap: 6px;
+    }
+    .post-title {
+      font-size: 14px;
+      -webkit-line-clamp: 2;
+    }
+    .post-meta {
+      font-size: 12px;
+    }
+    .tags-container {
+      gap: 4px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+    }
+  }
 </style>

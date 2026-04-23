@@ -1,5 +1,5 @@
 ---
-image: "/img/template.png"
+image: "./img/template.png"
 title: "ما تحتاج معرفته قبل الانتقال للينكس"
 pubDate: 2024-03-10
 tags: ["لينكس", "شروحات", "مبتدئين"]

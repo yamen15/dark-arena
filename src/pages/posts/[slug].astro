@@ -1,20 +1,20 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
+  const posts = await getCollection("posts");
   return posts.map((post) => ({
-    params: { slug: post.id.replace('.md', '') },
+    params: { slug: post.id.replace(".md", "") },
     props: { post },
   }));
 }
 
 // في [slug].astro أو about.astro
-const allPosts = await getCollection('posts');
+const allPosts = await getCollection("posts");
 const searchData = allPosts.map((post) => ({
   title: post.data.title,
-  slug: post.id.replace('.md', ''),
+  slug: post.id.replace(".md", ""),
   tags: post.data.tags,
 }));
 
@@ -26,23 +26,31 @@ const { Content } = await render(post);
 
 <Layout title={`${post.data.title} - الساحة المظلمة`} searchData={searchData}>
   <article class="post-page">
-
-
-
     <header class="post-header">
-      
       <h1>{post.data.title}</h1>
-      
+
       <div class="post-meta">
-        <span>{post.data.pubDate.toLocaleDateString('en', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
+        <span
+          >{
+            post.data.pubDate.toLocaleDateString("en", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+            })
+          }</span
+        >
         <span>{post.data.readTime}</span>
-        <span>👁 {post.data.views.toLocaleString('en')} مشاهدة</span>
+        <span>👁 {post.data.views.toLocaleString("en")} مشاهدة</span>
       </div>
 
       <div class="tags-container">
-        {post.data.tags.map((tag) => (
-          <a class="tag" href={`/tags/${tag}`}>{tag}</a>
-        ))}
+        {
+          post.data.tags.map((tag) => (
+            <a class="tag" href={`/tags/${tag}`}>
+              {tag}
+            </a>
+          ))
+        }
       </div>
     </header>
 
@@ -53,168 +61,168 @@ const { Content } = await render(post);
     </div>
 
     <div class="back-link">
-      <a href="/">← العودة للرئيسية</a>
+      <a href={`${import.meta.env.BASE_URL}`}>← العودة للرئيسية</a>
     </div>
-
   </article>
 </Layout>
 
 <style>
-
-.post-page { 
-  max-width: 750px; 
-  margin: 0 auto; 
-}
-
-
-.post-header { 
-  margin-bottom: 32px; 
-  margin-top: 200px; 
-  background: none;
-  border: none;
-  z-index: 1;
-}
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px; 
-  margin-top: 16px; }
-
-
-.tag { 
-   font-size: 13px;
-   padding: 3px 10px;
-   border: 1px solid #ffffff14; 
-   background: #ffffff0a; 
-   border-radius: 999px; color: #CDCDCD; 
-   text-decoration: none; 
-   transition: background 0.2s, color 0.2s; 
+  .post-page {
+    max-width: 750px;
+    margin: 0 auto;
   }
 
+  .post-header {
+    margin-bottom: 32px;
+    margin-top: 200px;
+    background: none;
+    border: none;
+    z-index: 1;
+  }
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
 
-.tag:hover { 
-  background: #3ea6ff20; 
-  color: #3EA6FF; 
-  border-color: #3ea6ff40; }
+  .tag {
+    font-size: 13px;
+    padding: 3px 10px;
+    border: 1px solid #ffffff14;
+    background: #ffffff0a;
+    border-radius: 999px;
+    color: #cdcdcd;
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
 
+  .tag:hover {
+    background: #3ea6ff20;
+    color: #3ea6ff;
+    border-color: #3ea6ff40;
+  }
 
-h1 { 
-  font-size: 30px; 
-  font-weight: 600; 
-  color: #fff; 
-  line-height: 1.5; 
-  margin-bottom: 12px; 
-}
+  h1 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
 
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: #cdcdcd;
+    font-size: 14px;
+  }
 
-.post-meta { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 16px; color: #CDCDCD; 
-  font-size: 14px; 
-}
+  .divider {
+    border: none;
+    border-top: 1px solid #ffffff30;
+    margin: 32px 0;
+  }
 
+  .post-content {
+    color: #eaeaea;
+    line-height: 1.9;
+    font-size: 17px;
+  }
 
-.divider { 
-  border: none; 
-  border-top: 1px solid #ffffff30; 
-  margin: 32px 0;
- }
+  .post-content h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin: 40px 0 16px;
+    border-right: 3px solid #3ea6ff;
+    padding-right: 12px;
+  }
 
+  .post-content h3 {
+    font-size: 20px;
+    color: #fff;
+    margin: 28px 0 12px;
+  }
 
-.post-content { 
-  color: #EAEAEA; 
-  line-height: 1.9; 
-  font-size: 17px; }
+  .post-content p {
+    margin-bottom: 18px;
+  }
 
+  .post-content ul,
+  .post-content ol {
+    padding-right: 24px;
+    margin-bottom: 18px;
+  }
 
-.post-content h2 { 
-  font-size: 24px; 
-  font-weight: 600; 
-  color: #fff; 
-  margin: 40px 0 16px; 
-  border-right: 3px solid #3EA6FF; 
-  padding-right: 12px; }
+  .post-content li {
+    margin-bottom: 8px;
+  }
 
+  .post-content a {
+    color: #3ea6ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 
-.post-content h3 { 
-  font-size: 20px; 
-  color: #fff; 
-  margin: 28px 0 12px; 
-}
+  .post-content code {
+    background: #ffffff12;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 15px;
+    border: 1px solid #ffffff14;
+  }
 
+  .post-content pre {
+    background: #1a1b1e;
+    border: 1px solid #ffffff14;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
 
-.post-content p { 
-  margin-bottom: 18px; 
-}
+  .post-content pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
 
+  .post-content blockquote {
+    border-right: 3px solid #3ea6ff;
+    padding: 12px 16px;
+    margin: 20px 0;
+    background: #ffffff06;
+    border-radius: 0 8px 8px 0;
+    color: #cdcdcd;
+  }
 
-.post-content ul, .post-content ol { 
-  padding-right: 24px; 
-  margin-bottom: 18px; 
-}
+  .back-link {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #ffffff14;
+  }
 
+  .back-link a {
+    color: #cdcdcd;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
 
-.post-content li { 
-  margin-bottom: 8px; 
-}
+  .back-link a:hover {
+    color: #3ea6ff;
+  }
 
-.post-content a { 
-  color: #3EA6FF; 
-  text-decoration: underline; 
-  text-underline-offset: 3px; }
-
-
-.post-content code { 
-  background: #ffffff12; 
-  padding: 2px 8px; 
-  border-radius: 6px; 
-  font-size: 15px; 
-  border: 1px solid #ffffff14;
-
-}
-
-
-.post-content pre { 
-  background: #1A1B1E; 
-  border: 1px solid #ffffff14; 
-  border-radius: 10px; padding: 20px; 
-  overflow-x: auto; margin-bottom: 24px; 
-}
-
-.post-content pre code { 
-  background: transparent; 
-  border: none; 
-  padding: 0; }
-
-
-.post-content blockquote { 
-  border-right: 3px solid #3EA6FF; 
-  padding: 12px 16px; 
-  margin: 20px 0; 
-  background: #ffffff06; 
-  border-radius: 0 8px 8px 0; 
-  color: #CDCDCD; }
-
-
-.back-link { margin-top: 48px; 
-  padding-top: 24px; 
-  border-top: 1px solid #ffffff14; }
-
-.back-link a { 
-  color: #CDCDCD; 
-  text-decoration: none; 
-  font-size: 15px; 
-  transition: color 0.2s; }
-
-
-.back-link a:hover { 
-  color: #3EA6FF; 
-}
-
-
-@media 
-  (max-width: 600px)
-  { h1 { font-size: 24px; } 
-  .post-content { font-size: 16px; } }
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 24px;
+    }
+    .post-content {
+      font-size: 16px;
+    }
+  }
 </style>

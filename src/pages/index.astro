@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
-const allPosts = await getCollection('posts');
+const allPosts = await getCollection("posts");
 const sortedPosts = allPosts.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
 // نجهز بيانات البحث ونمررها لـ Layout
 const searchData = allPosts.map((post) => ({
   title: post.data.title,
-  slug: post.id.replace('.md', ''),
+  slug: post.id.replace(".md", ""),
   tags: post.data.tags,
 }));
 ---
@@ -25,16 +25,18 @@ const searchData = allPosts.map((post) => ({
       </div>
 
       <div class="posts-grid">
-        {sortedPosts.map((post) => (
-          <PostCard
-            image={post.data.image}
-            title={post.data.title}
-            slug={post.id.replace('.md', '')}
-            tags={post.data.tags}
-            readTime={post.data.readTime}
-            views={post.data.views}
-          />
-        ))}
+        {
+          sortedPosts.map((post) => (
+            <PostCard
+              image={post.data.image}
+              title={post.data.title}
+              slug={post.id.replace(".md", "")}
+              tags={post.data.tags}
+              readTime={post.data.readTime}
+              views={post.data.views}
+            />
+          ))
+        }
       </div>
     </section>
   </div>
