@@ -4,19 +4,23 @@
 
 ```
 src/
+│
+├── components/
+│   └── PostCard.astro      ← مكون بطاقة المقال
+│
 ├── content/
-│   ├── config.ts          ← تعريف شكل بيانات المقالات (مطلوب)
 │   └── posts/
 │       ├── linux-guide.md     ← مقال (اسم الملف = الرابط)
 │       └── vscode-extensions.md
 ├── layouts/
 │   └── Layout.astro       ← القالب الرئيسي (هيدر + فوتر)
-├── components/
-│   └── PostCard.astro     ← مكون بطاقة المقال
-└── pages/
-    ├── index.astro        ← الصفحة الرئيسية
-    └── posts/
-        └── [slug].astro   ← صفحة المقال الديناميكية
+│
+├──   pages/
+│    ├── index.astro        ← الصفحة الرئيسية
+│    └── posts/
+│        └── [slug].astro   ← صفحة المقال الديناميكية
+│
+└──   content.config.ts          ← تعريف شكل بيانات المقالات (مطلوب)          
 ```
 
 ## كيفية إضافة مقال جديد
@@ -41,12 +45,6 @@ description: "وصف قصير للمقال"
 
 الرابط سيكون تلقائياً: `/posts/my-new-post`
 
-## تشغيل المشروع
-
-```bash
-npm install
-npm run dev
-```
 
 ## الأوامر
 
