@@ -11,7 +11,7 @@ const posts = defineCollection({
     title: z.string(),
     pubDate: z.date(),
     tags: z.array(z.string()),
-    image: z.string().default('/img/template.png'),
+    image: z.string().default('./img/template.png'),
     readTime: z.string().default('5 دقائق'),
     views: z.number().default(0),
   }),
