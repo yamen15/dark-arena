@@ -7,8 +7,6 @@ const allPosts = await getCollection("posts");
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-// نجهز بيانات البحث ونمررها لـ Layout
 const searchData = allPosts.map((post) => ({
   title: post.data.title,
   slug: post.id.replace(".md", ""),
@@ -23,7 +21,6 @@ const searchData = allPosts.map((post) => ({
         <h2>الصفحة الرئيسية</h2>
         <p class="subtitle">أحدث المقالات</p>
       </div>
-
       <div class="posts-grid">
         {
           sortedPosts.map((post) => (

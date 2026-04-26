@@ -1,12 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout title="عن الموقع - الساحة المظلمة">
   <section class="hero">
     <div class="hero-card fade-up">
       <div class="avatar-wrap">
-        <img class="avatar" src="./img/avatar.png" alt="avatar" loading="lazy" />
+        <img
+          class="avatar"
+          src={`${base}/img/avatar.png`}
+          alt="avatar"
+          loading="lazy"
+        />
         <div class="avatar-ring"></div>
       </div>
       <h1 class="name">yamen</h1>
@@ -18,7 +24,7 @@ import Layout from "../layouts/Layout.astro";
           aria-label="X"
           class="social-link"
         >
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox="0 0 24 24"
             ><path
               d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"
             ></path></svg
@@ -30,7 +36,7 @@ import Layout from "../layouts/Layout.astro";
           aria-label="GitHub"
           class="social-link"
         >
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox="0 0 24 24"
             ><path
               d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
             ></path></svg
@@ -42,7 +48,7 @@ import Layout from "../layouts/Layout.astro";
           aria-label="YouTube"
           class="social-link"
         >
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox="0 0 24 24"
             ><path
               d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
             ></path></svg
@@ -70,61 +76,52 @@ import Layout from "../layouts/Layout.astro";
   <section class="skills-section fade-up delay-2">
     <h2 class="section-title">المهارات</h2>
     <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon html">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+      <!-- HTML -->
+      <div class="skill-card html">
+        <div class="skill-icon html-i">
+          <svg viewBox="0 0 24 24"
             ><path
               d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"
             ></path></svg
           >
         </div>
-        <div class="skill-info">
-          <span class="skill-name">HTML</span><span class="skill-pct">90%</span>
-        </div>
-        <div class="skill-bar"><div class="skill-fill html-fill"></div></div>
+        <span class="skill-name">HTML</span>
       </div>
 
-      <div class="skill-card">
-        <div class="skill-icon css">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+      <!-- CSS -->
+      <div class="skill-card css">
+        <div class="skill-icon css-i">
+          <svg viewBox="0 0 24 24"
             ><path
               d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"
             ></path></svg
           >
         </div>
-        <div class="skill-info">
-          <span class="skill-name">CSS</span><span class="skill-pct">85%</span>
-        </div>
-        <div class="skill-bar"><div class="skill-fill css-fill"></div></div>
+        <span class="skill-name">CSS</span>
       </div>
 
-      <div class="skill-card">
-        <div class="skill-icon js">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+      <!-- JS -->
+      <div class="skill-card js">
+        <div class="skill-icon js-i">
+          <svg viewBox="0 0 24 24"
             ><path
               d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"
             ></path></svg
           >
         </div>
-        <div class="skill-info">
-          <span class="skill-name">JavaScript</span><span class="skill-pct"
-            >75%</span>
-        </div>
-        <div class="skill-bar"><div class="skill-fill js-fill"></div></div>
+        <span class="skill-name">JavaScript</span>
       </div>
 
-      <div class="skill-card">
-        <div class="skill-icon git">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+      <!-- Git -->
+      <div class="skill-card git">
+        <div class="skill-icon git-i">
+          <svg viewBox="0 0 24 24"
             ><path
               d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.605-.404-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"
             ></path></svg
           >
         </div>
-        <div class="skill-info">
-          <span class="skill-name">Git</span><span class="skill-pct">70%</span>
-        </div>
-        <div class="skill-bar"><div class="skill-fill git-fill"></div></div>
+        <span class="skill-name">Git</span>
       </div>
     </div>
   </section>
@@ -152,36 +149,15 @@ import Layout from "../layouts/Layout.astro";
       opacity: 0.15;
     }
   }
-  @keyframes fillHtml {
-    from {
-      width: 0;
+
+  /* حركة الـ skill-card عند hover - float + glow */
+  @keyframes floatUp {
+    0%,
+    100% {
+      transform: translateY(0);
     }
-    to {
-      width: 90%;
-    }
-  }
-  @keyframes fillCss {
-    from {
-      width: 0;
-    }
-    to {
-      width: 85%;
-    }
-  }
-  @keyframes fillJs {
-    from {
-      width: 0;
-    }
-    to {
-      width: 75%;
-    }
-  }
-  @keyframes fillGit {
-    from {
-      width: 0;
-    }
-    to {
-      width: 70%;
+    50% {
+      transform: translateY(-6px);
     }
   }
 
@@ -195,7 +171,6 @@ import Layout from "../layouts/Layout.astro";
     animation-delay: 0.28s;
   }
 
-  /* HERO */
   .hero {
     max-width: 1100px;
     margin: 0 auto;
@@ -205,7 +180,6 @@ import Layout from "../layouts/Layout.astro";
     gap: 56px;
     padding: 48px 0 64px;
   }
-
   .hero-card {
     width: 220px;
     flex-shrink: 0;
@@ -229,8 +203,8 @@ import Layout from "../layouts/Layout.astro";
     position: relative;
     z-index: 1;
     transition:
-      transform 0.35s ease,
-      border-color 0.35s ease;
+      transform 0.35s,
+      border-color 0.35s;
   }
   .avatar:hover {
     transform: scale(1.05);
@@ -351,111 +325,124 @@ import Layout from "../layouts/Layout.astro";
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 14px;
   }
 
   .skill-card {
     background: #1a1b1e;
     border: 1px solid #ffffff0e;
-    border-radius: 14px;
-    padding: 16px 14px;
+    border-radius: 16px;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    gap: 14px;
+    cursor: default;
     transition:
-      border-color 0.2s,
-      transform 0.25s,
-      background 0.2s;
-  }
-  .skill-card:hover {
-    border-color: #ffffff1e;
-    transform: translateY(-4px);
-    background: #1e1f23;
+      border-color 0.3s,
+      background 0.3s,
+      box-shadow 0.3s,
+      transform 0.3s;
+    position: relative;
+    overflow: hidden;
   }
 
+  /* الـ glow خلف الكارد */
+  .skill-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .skill-card.html::before {
+    background: radial-gradient(circle at 50% 0%, #e44d2618, transparent 70%);
+  }
+  .skill-card.css::before {
+    background: radial-gradient(circle at 50% 0%, #264de418, transparent 70%);
+  }
+  .skill-card.js::before {
+    background: radial-gradient(circle at 50% 0%, #f7df1e18, transparent 70%);
+  }
+  .skill-card.git::before {
+    background: radial-gradient(circle at 50% 0%, #f0503218, transparent 70%);
+  }
+
+  .skill-card:hover {
+    transform: translateY(-6px);
+  }
+  .skill-card:hover::before {
+    opacity: 1;
+  }
+  .skill-card.html:hover {
+    border-color: #e44d2640;
+    box-shadow: 0 8px 32px #e44d2618;
+  }
+  .skill-card.css:hover {
+    border-color: #264de440;
+    box-shadow: 0 8px 32px #264de418;
+  }
+  .skill-card.js:hover {
+    border-color: #f7df1e40;
+    box-shadow: 0 8px 32px #f7df1e18;
+  }
+  .skill-card.git:hover {
+    border-color: #f0503240;
+    box-shadow: 0 8px 32px #f0503218;
+  }
+
+  /* الأيقونة تدور/تكبر عند hover */
   .skill-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 1;
+  }
+  .skill-card:hover .skill-icon {
+    transform: scale(1.18) rotate(-4deg);
   }
   .skill-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
   }
 
-  .html {
+  .skill-card .html-i {
     background: #e44d261a;
   }
-  .html svg {
+  .skill-card .html-i svg {
     fill: #e44d26;
   }
-  .css {
+  .skill-card .css-i {
     background: #264de41a;
   }
-  .css svg {
+  .skill-card .css-i svg {
     fill: #264de4;
   }
-  .js {
+  .skill-card .js-i {
     background: #f7df1e1a;
   }
-  .js svg {
+  .skill-card .js-i svg {
     fill: #f7df1e;
   }
-  .git {
+  .skill-card .git-i {
     background: #f054321a;
   }
-  .git svg {
+  .skill-card .git-i svg {
     fill: #f05032;
   }
 
-  .skill-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
   .skill-name {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     color: #eaeaea;
-  }
-  .skill-pct {
-    font-size: 12px;
-    color: #666;
-  }
-
-  .skill-bar {
-    height: 4px;
-    background: #ffffff0a;
-    border-radius: 999px;
-    overflow: hidden;
-  }
-  .skill-fill {
-    height: 100%;
-    border-radius: 999px;
-    width: 0;
-    animation-duration: 1.1s;
-    animation-timing-function: ease;
-    animation-delay: 0.4s;
-    animation-fill-mode: forwards;
-  }
-  .html-fill {
-    background: #e44d26;
-    animation-name: fillHtml;
-  }
-  .css-fill {
-    background: #264de4;
-    animation-name: fillCss;
-  }
-  .js-fill {
-    background: #f7df1e;
-    animation-name: fillJs;
-  }
-  .git-fill {
-    background: #f05032;
-    animation-name: fillGit;
+    position: relative;
+    z-index: 1;
   }
 
   /* RESPONSIVE */
@@ -479,7 +466,6 @@ import Layout from "../layouts/Layout.astro";
       grid-template-columns: repeat(2, 1fr);
     }
   }
-
   @media (max-width: 480px) {
     .name {
       font-size: 26px;
@@ -489,10 +475,7 @@ import Layout from "../layouts/Layout.astro";
       gap: 10px;
     }
     .skill-card {
-      padding: 14px 12px;
-    }
-    .skill-name {
-      font-size: 13px;
+      padding: 20px 12px;
     }
   }
 </style>
